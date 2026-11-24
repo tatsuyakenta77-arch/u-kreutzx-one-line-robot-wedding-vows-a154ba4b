@@ -11,4 +11,10 @@ const VOW =
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(outDir, { recursive: true });
+
+// Self-check the gate before writing: 1-160 characters, one line, not blank.
+const chars = [...VOW].length;
+if (chars < 1 || chars > 160 || VOW.includes("\n") || VOW.trim().length === 0) {
+  throw new Error(`vow fails gate: ${chars} characters`);
+}
 writeFileSync(join(outDir, "entry.txt"), VOW, "utf8");
